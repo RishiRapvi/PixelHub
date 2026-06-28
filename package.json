@@ -22,11 +22,11 @@
       "preferences": [
         {
           "name": "knownTargets",
-          "title": "Known ADB Targets",
-          "description": "Comma-separated ADB targets to try before mirroring, for example 192.168.68.66:5555,192.168.68.75:5555.",
+          "title": "Phone Wi-Fi IP Address",
+          "description": "Enter your Android device's wireless ADB address (for example: 192.168.68.66:5555). You can enter multiple addresses separated by commas.",
           "type": "textfield",
           "required": false,
-          "default": "192.168.68.66:5555,192.168.68.75:5555"
+          "default": ""
         }
       ]
     },
@@ -35,6 +35,12 @@
       "title": "Battery",
       "description": "Show Android battery information.",
       "mode": "view"
+    },
+    {
+      "name": "screenshot",
+      "title": "Screenshot",
+      "description": "Take a screenshot from your Android device.",
+      "mode": "no-view"
     }
   ],
   "dependencies": {

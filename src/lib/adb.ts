@@ -19,6 +19,11 @@ export async function runAdb(args: string[]): Promise<{ stdout: string; stderr: 
   return run(ADB, args, { env: ENV });
 }
 
+export async function shell(command: string[]): Promise<string> {
+  const { stdout } = await runAdb(["shell", ...command]);
+  return stdout;
+}
+
 export async function connectKnownTargets(targets: string[]) {
   for (const target of targets) {
     try {

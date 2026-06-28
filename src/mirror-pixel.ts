@@ -22,7 +22,7 @@ export default async function Command() {
     toast.title = "Launching scrcpy...";
     toast.message = device.serial;
 
-    await launchScrcpy(device.serial);
+    launchScrcpy(device.serial);
 
     toast.style = Toast.Style.Success;
     toast.title = "Pixel mirrored!";

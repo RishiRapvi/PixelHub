@@ -29,6 +29,12 @@
           "default": "192.168.68.66:5555,192.168.68.75:5555"
         }
       ]
+    },
+    {
+      "name": "battery",
+      "title": "Battery",
+      "description": "Show Android battery information.",
+      "mode": "view"
     }
   ],
   "dependencies": {

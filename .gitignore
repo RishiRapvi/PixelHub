@@ -11,4 +11,8 @@ compiled_raycast_swift
 compiled_raycast_rust
 
 # misc
+node_modules
+dist
+.raycast
 .DS_Store
+.env

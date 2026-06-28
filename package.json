@@ -15,11 +15,21 @@
   "license": "MIT",
   "commands": [
     {
-  "name": "mirror-pixel",
-  "title": "Mirror Pixel",
-  "description": "Wirelessly mirror your Android device using ADB and scrcpy.",
-  "mode": "no-view"
-  }
+      "name": "mirror-pixel",
+      "title": "Mirror Pixel",
+      "description": "Wirelessly mirror your Android device using ADB and scrcpy.",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "knownTargets",
+          "title": "Known ADB Targets",
+          "description": "Comma-separated ADB targets to try before mirroring, for example 192.168.68.66:5555,192.168.68.75:5555.",
+          "type": "textfield",
+          "required": false,
+          "default": "192.168.68.66:5555,192.168.68.75:5555"
+        }
+      ]
+    }
   ],
   "dependencies": {
     "@raycast/api": "^1.104.20",

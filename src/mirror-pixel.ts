@@ -2,8 +2,7 @@ import { Toast, showToast } from "@raycast/api";
 import { connectKnownTargets } from "./lib/adb";
 import { findOnlineDevice } from "./lib/device";
 import { launchScrcpy } from "./lib/scrcpy";
-
-const KNOWN_TCPIP_TARGETS = ["192.168.68.66:5555", "192.168.68.75:5555"];
+import { getKnownTargets } from "./lib/preferences";
 
 export default async function Command() {
   const toast = await showToast({
@@ -12,7 +11,7 @@ export default async function Command() {
   });
 
   try {
-    await connectKnownTargets(KNOWN_TCPIP_TARGETS);
+    await connectKnownTargets(getKnownTargets());
 
     const device = await findOnlineDevice();
 

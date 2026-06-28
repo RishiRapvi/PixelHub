@@ -1,59 +1,21 @@
 import { Toast, showToast } from "@raycast/api";
-import { exec, execFile } from "child_process";
-import { promisify } from "util";
+import { exec } from "child_process";
+import { ENV, connectKnownTargets, getAdbDevices } from "./lib/adb";
 
-const run = promisify(execFile);
-
-const ADB = "/opt/homebrew/bin/adb";
 const SCRCPY = "/opt/homebrew/bin/scrcpy";
 const KNOWN_TCPIP_TARGETS = ["192.168.68.66:5555", "192.168.68.75:5555"];
-
-const ENV: NodeJS.ProcessEnv = {
-  ...process.env,
-  PATH: "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
-};
 
 type AdbDevice = {
   serial: string;
   status: string;
 };
 
-async function runAdb(args: string[]) {
-  return run(ADB, args, { env: ENV });
-}
-
-async function connectKnownTargets() {
-  for (const target of KNOWN_TCPIP_TARGETS) {
-    try {
-      await runAdb(["connect", target]);
-    } catch {
-      // Ignore unreachable saved IPs.
-    }
-  }
-}
-
-async function getAdbDevices(): Promise<AdbDevice[]> {
-  const { stdout } = await runAdb(["devices"]);
-
-  return stdout
-    .split("\n")
-    .slice(1)
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => {
-      const [serial = "", status = ""] = line.split(/\s+/);
-      return { serial, status };
-    });
-}
-
 function chooseOnlineDevice(devices: AdbDevice[]): AdbDevice | undefined {
   return devices.find((device) => device.status === "device");
 }
 
 function launchScrcpy(serial: string) {
-  const command = `${SCRCPY} -s ${serial}`;
-
-  exec(command, { env: ENV }, (error, stdout, stderr) => {
+  exec(`${SCRCPY} -s ${serial}`, { env: ENV }, (error, stdout, stderr) => {
     if (error) {
       console.error(stderr || error.message);
       return;
@@ -72,10 +34,9 @@ export default async function Command() {
   });
 
   try {
-    await connectKnownTargets();
+    await connectKnownTargets(KNOWN_TCPIP_TARGETS);
 
-    const devices = await getAdbDevices();
-    const device = chooseOnlineDevice(devices);
+    const device = chooseOnlineDevice(await getAdbDevices());
 
     if (!device) {
       throw new Error("No online ADB device found. Connect over USB or enable ADB over Wi-Fi.");
@@ -89,9 +50,7 @@ export default async function Command() {
     toast.style = Toast.Style.Success;
     toast.title = "Pixel mirrored!";
     toast.message = device.serial;
-  } catch (error: unknown) {
-    console.error(error);
-
+  } catch (error) {
     toast.style = Toast.Style.Failure;
     toast.title = "Couldn't mirror Pixel";
     toast.message = error instanceof Error ? error.message : String(error);

@@ -2,7 +2,7 @@ PixelHub
 
 Control your Android device directly from Raycast.
 
-PixelHub is an open-source Raycast extension that brings common Android tools into a fast, keyboard-driven workflow. It eliminates repetitive ADB commands by exposing everyday device actions as native Raycast commands.
+PixelHub is an open-source Raycast extension that brings common Android tools into a fast, keyboard-driven workflow. Instead of opening Terminal or Android Studio, you can mirror your device, view battery information, take screenshots, and more—all from Raycast.
 
 ⸻
 
@@ -71,9 +71,7 @@ npm run dev
 
 Configuration
 
-PixelHub uses Raycast Preferences.
-
-Open:
+Open Raycast Settings:
 
 Raycast
 → Extensions
@@ -86,7 +84,16 @@ Example:
 
 192.168.1.123:5555
 
-Multiple devices may be entered as a comma-separated list.
+Multiple devices can be entered as a comma-separated list.
+
+⸻
+
+Commands
+
+Command	Description
+Mirror	Wirelessly mirrors your Android device using scrcpy
+Battery	Displays battery percentage, status, health, and temperature
+Screenshot	Captures a screenshot and saves it to your Mac
 
 ⸻
 
@@ -107,15 +114,6 @@ src/
 
 ⸻
 
-Current Commands
-
-Command	Description
-Mirror	Launches scrcpy and mirrors the connected Android device
-Battery	Displays battery information including charge, health, and temperature
-Screenshot	Captures a screenshot from the connected Android device
-
-⸻
-
 Roadmap
 
 Completed
@@ -124,13 +122,13 @@ Completed
 * Mirror command
 * Battery command
 * Screenshot command
-* Configurable Wi-Fi IP address
+* Configurable Wi-Fi IP preferences
 * Modular architecture
 
 Planned
 
 * Device information
-* APK installation
+* APK installer
 * Screen recording
 * Clipboard synchronization
 * File transfer
@@ -139,9 +137,11 @@ Planned
 
 ⸻
 
-Vision
+Contributing
 
-PixelHub aims to become a complete Android control center for macOS. Rather than opening Terminal or Android Studio for common tasks, developers and power users can perform them directly from Raycast through a consistent interface.
+Contributions, feature requests, and bug reports are welcome.
+
+If you’d like to improve PixelHub, feel free to open an issue or submit a pull request.
 
 ⸻
 
